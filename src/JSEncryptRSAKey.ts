@@ -102,16 +102,16 @@ export class JSEncryptRSAKey extends RSAKey {
                 this.coeff = parseBigInt(coefficient, 16);
 
             } else if (asn1.sub.length === 2) {
-
+                // FIXME unknown bug
                 // Parse the public key.
-                const bit_string = asn1.sub[1];
-                const sequence = bit_string.sub[0];
-
-                modulus = sequence.sub[0].getHexStringValue();
+                // var bit_string = asn1.sub[1];
+                // var sequence = bit_string.sub[0];
+                // modulus = sequence.sub[0].getHexStringValue();
+                modulus = asn1.sub[0].getHexStringValue();
                 this.n = parseBigInt(modulus, 16);
-                public_exponent = sequence.sub[1].getHexStringValue();
+                // public_exponent = sequence.sub[1].getHexStringValue();
+                public_exponent = asn1.sub[1].getHexStringValue();
                 this.e = parseInt(public_exponent, 16);
-
             } else {
                 return false;
             }
